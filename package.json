@@ -1,0 +1,16 @@
+{
+  "name": "three_basic",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "build": "pacel build src/index.html"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "parcel": "^2.8.0"
+  },
+  "dependencies": {
+    "three": "^0.146.0"
+  }
+}
