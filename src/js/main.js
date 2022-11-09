@@ -28,6 +28,10 @@ const cubeMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 })
 // 根据 几何体 和 材质 创建物体
 const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
 
+// 修改物体位置
+// cube.position.set(5, 4, 0)
+cube.position.x = 0
+
 // 将几何体添加到场景之中
 scene.add(cube)
 
@@ -61,7 +65,12 @@ scene.add(axesHelper)
 // 告诉浏览器——你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。
 // 该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行
 
+// 渲染函数
 function render () {
+  cube.position.x += 0.02
+  if (cube.position.x > 5) {
+    cube.position.x = 0
+  }
   renderer.render(scene, camera)
   // 浏览器每渲染一帧都会调用 render 函数
   requestAnimationFrame(render)
