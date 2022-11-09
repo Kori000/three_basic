@@ -50,6 +50,13 @@ document.body.appendChild(renderer.domElement)
 // 传入 相机 和 用于事件监听的 HTML 元素 (canvas)
 const controls = new OrbitControls(camera, renderer.domElement)
 
+// 创建坐标辅助器
+// 红x 绿y 蓝z
+const axesHelper = new THREE.AxesHelper(5)
+
+// 添加 坐标辅助器 到场景中
+scene.add(axesHelper)
+
 // window.requestAnimationFrame()
 // 告诉浏览器——你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。
 // 该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行
