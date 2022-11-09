@@ -39,7 +39,7 @@ const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
 // 旋转
 // Math.PI = 180°
 // cube.rotation.set(Math.PI / 4, 0, 0, 'XYZ')
-cube.rotation.x = Math.PI / 4
+// cube.rotation.x = Math.PI / 4
 
 
 // 将几何体添加到场景之中
@@ -76,12 +76,30 @@ scene.add(axesHelper)
 // 该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行
 
 // 渲染函数
-function render () {
-  cube.position.x += 0.02
-  cube.rotation.x += 0.02
-  if (cube.position.x > 5) {
-    cube.position.x = 0
-  }
+function render (time) {
+  // cube.position.x += 0.02
+  // cube.rotation.x += 0.02
+
+  // 步长取余
+  // 1 % 5 = 1 
+  // 2 % 5 = 2 
+  // 3 % 5 = 3 
+  // 4 % 5 = 4 
+  // 5 % 5 = 0  归 0
+  // 6 % 5 = 1
+  // 7 % 5 = 2
+  // 8 % 5 = 3
+  // 9 % 5 = 4
+  // 10 % 5 = 0  归 0
+  // 11 % 5 = 1
+  let t = time / 1000 % 5;
+  cube.position.x = t * 1
+  // 公式: l = vt
+
+  // if (cube.position.x > 5) {
+  //   cube.position.x = 0
+  // }
+
   renderer.render(scene, camera)
   // 浏览器每渲染一帧都会调用 render 函数
   requestAnimationFrame(render)
