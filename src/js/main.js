@@ -30,7 +30,17 @@ const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
 
 // 修改物体位置
 // cube.position.set(5, 4, 0)
-cube.position.x = 0
+// cube.position.x = 0
+
+// 缩放
+// cube.scale.set(2, 2, 2)
+// cube.scale.x = 2
+
+// 旋转
+// Math.PI = 180°
+// cube.rotation.set(Math.PI / 4, 0, 0, 'XYZ')
+cube.rotation.x = Math.PI / 4
+
 
 // 将几何体添加到场景之中
 scene.add(cube)
@@ -68,6 +78,7 @@ scene.add(axesHelper)
 // 渲染函数
 function render () {
   cube.position.x += 0.02
+  cube.rotation.x += 0.02
   if (cube.position.x > 5) {
     cube.position.x = 0
   }
