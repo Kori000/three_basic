@@ -4,6 +4,9 @@ import * as THREE from 'three';
 // 引入 轨道控制器
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
+// 引入 gsap 动画库 
+import gsap from 'gsap';
+
 // 创建场景
 const scene = new THREE.Scene()
 
@@ -78,14 +81,11 @@ scene.add(axesHelper)
 // 设置 three 自带的时钟
 const clock = new THREE.Clock()
 
+// 设置动画
+gsap.to(cube.position, { x: 5, duration: 5, ease: 'power1.inOut' })
+gsap.to(cube.rotation, { x: Math.PI * 2, duration: 5, ease: 'power1.inOut' })
 // 渲染函数
 function render () {
-  // 两次获取时钟 的 间隔时长
-  // let deltaTime = clock.getDelta()
-  // 获取时钟运行的总时长
-  let time = clock.getElapsedTime()
-  let t = time % 5;
-  cube.position.x = t * 1
 
   renderer.render(scene, camera)
   // 浏览器每渲染一帧都会调用 render 函数
