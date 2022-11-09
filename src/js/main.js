@@ -75,30 +75,17 @@ scene.add(axesHelper)
 // 告诉浏览器——你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。
 // 该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行
 
+// 设置 three 自带的时钟
+const clock = new THREE.Clock()
+
 // 渲染函数
-function render (time) {
-  // cube.position.x += 0.02
-  // cube.rotation.x += 0.02
-
-  // 步长取余
-  // 1 % 5 = 1 
-  // 2 % 5 = 2 
-  // 3 % 5 = 3 
-  // 4 % 5 = 4 
-  // 5 % 5 = 0  归 0
-  // 6 % 5 = 1
-  // 7 % 5 = 2
-  // 8 % 5 = 3
-  // 9 % 5 = 4
-  // 10 % 5 = 0  归 0
-  // 11 % 5 = 1
-  let t = time / 1000 % 5;
+function render () {
+  // 两次获取时钟 的 间隔时长
+  // let deltaTime = clock.getDelta()
+  // 获取时钟运行的总时长
+  let time = clock.getElapsedTime()
+  let t = time % 5;
   cube.position.x = t * 1
-  // 公式: l = vt
-
-  // if (cube.position.x > 5) {
-  //   cube.position.x = 0
-  // }
 
   renderer.render(scene, camera)
   // 浏览器每渲染一帧都会调用 render 函数
