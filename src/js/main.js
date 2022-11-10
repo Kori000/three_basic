@@ -67,6 +67,9 @@ document.body.appendChild(renderer.domElement)
 // 传入 相机 和 用于事件监听的 HTML 元素 (canvas)
 const controls = new OrbitControls(camera, renderer.domElement)
 
+// 设置控制器阻尼, 提高控制器的真实性, ##必须要在动画循环中调用.update()
+controls.enableDamping = true
+
 // 创建坐标辅助器
 // 红x 绿y 蓝z
 const axesHelper = new THREE.AxesHelper(5)
@@ -125,9 +128,27 @@ window.addEventListener('dblclick', () => {
 
 // 渲染函数
 function render () {
+  controls.update()
   renderer.render(scene, camera)
   // 浏览器每渲染一帧都会调用 render 函数
   requestAnimationFrame(render)
 }
 
 render()
+
+
+// 监听窗口尺寸变化
+window.addEventListener('resize', () => {
+  // console.log('窗口变化了')
+  // 更新摄像机宽高比
+  camera.aspect = window.innerWidth / window.innerHeight
+  // Camera 在大多数属性发生改变之后，你将需要调用.updateProjectionMatrix来使得这些改变生效。
+  // 更新摄像机的投影矩阵
+  camera.updateProjectionMatrix()
+  // 更新渲染器
+  renderer.setSize(window.innerWidth, window.innerHeight)
+  // 更新渲染器像素比 
+  // .setPixelRatio 设置设备像素比。通常用于避免HiDPI设备上绘图模糊
+  // window.devicePixelRatio 获取设备像素比
+  renderer.setPixelRatio(window.devicePixelRatio)
+}) 
