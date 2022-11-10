@@ -26,76 +26,31 @@ scene.add(camera)
 
 // 添加物体
 // 创建几何体
-const cubeGeometry = new THREE.BoxGeometry(1, 1, 1)
-// 创建材质
-const cubeMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 })
+const geometry = new THREE.BufferGeometry()
 
-// 创建物体
-// 根据 几何体 和 材质 创建物体
-const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
+const vertices = new Float32Array([
+  -1.0, -1.0, 1.0,
+  1.0, -1.0, 1.0,
+  1.0, 1.0, 1.0,
+  1.0, 1.0, 1.0,
+  -1.0, 1.0, 1.0,
+  -1.0, -1.0, 1.0
+])
+
+geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
+
+// 创建材质
+const material = new THREE.MeshBasicMaterial({ color: 0xffff00 })
+
+// 创建缓冲物体
+const mesh = new THREE.Mesh(geometry, material)
+
+scene.add(mesh)
+
+console.log(mesh)
 
 // 创建 GUI
 const gui = new dat.GUI();
-gui.add(cube.position, 'x')
-  .min(0)
-  .max(10)
-  .step(0.1)
-  .name('X axis')
-
-// 修改物体颜色
-const palette = {
-  color1: '#0cc',
-  fn: () => {
-    gsap.to(cube.position, {
-      x: 5,
-      duration: 2,
-      yoyo: true,
-      ease: 'power1.inOut',
-      repeat: -1
-    })
-  }
-}
-// 设置调色板
-gui
-  .addColor(palette, 'color1')
-  .onChange((val) => {
-    cube.material.color.set(val)
-  })
-  .name('调色版')
-
-// 设置选修框
-gui
-  .add(cube, 'visible')
-  .name('显示隐藏')
-
-// 设置函数按钮
-gui
-  .add(palette, 'fn')
-  .name('点击开始运动')
-
-// 设置文件夹
-const folder = gui.addFolder('设置立方体')
-
-folder.add(cube.material, 'wireframe')
-
-
-
-// 修改物体位置
-// cube.position.set(5, 4, 0)
-// cube.position.x = 0
-
-// 缩放
-// cube.scale.set(2, 2, 2)
-// cube.scale.x = 2
-
-// 旋转
-// Math.PI = 180°
-// cube.rotation.set(Math.PI / 4, 0, 0, 'XYZ')
-// cube.rotation.x = Math.PI / 4
-
-
-// 将几何体添加到场景之中
-scene.add(cube)
 
 // 初始化渲染器
 const renderer = new THREE.WebGLRenderer()
