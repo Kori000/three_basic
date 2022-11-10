@@ -4,6 +4,9 @@ import * as THREE from 'three';
 // 引入 轨道控制器
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
+// 引入 bat.gui --- 一个轻量级 ui 库
+import * as dat from 'dat.gui';
+
 // 引入 gsap 动画库 
 import gsap from 'gsap';
 
@@ -30,6 +33,52 @@ const cubeMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 })
 // 创建物体
 // 根据 几何体 和 材质 创建物体
 const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
+
+// 创建 GUI
+const gui = new dat.GUI();
+gui.add(cube.position, 'x')
+  .min(0)
+  .max(10)
+  .step(0.1)
+  .name('X axis')
+
+// 修改物体颜色
+const palette = {
+  color1: '#0cc',
+  fn: () => {
+    gsap.to(cube.position, {
+      x: 5,
+      duration: 2,
+      yoyo: true,
+      ease: 'power1.inOut',
+      repeat: -1
+    })
+  }
+}
+// 设置调色板
+gui
+  .addColor(palette, 'color1')
+  .onChange((val) => {
+    cube.material.color.set(val)
+  })
+  .name('调色版')
+
+// 设置选修框
+gui
+  .add(cube, 'visible')
+  .name('显示隐藏')
+
+// 设置函数按钮
+gui
+  .add(palette, 'fn')
+  .name('点击开始运动')
+
+// 设置文件夹
+const folder = gui.addFolder('设置立方体')
+
+folder.add(cube.material, 'wireframe')
+
+
 
 // 修改物体位置
 // cube.position.set(5, 4, 0)
@@ -126,4 +175,6 @@ window.addEventListener('resize', () => {
   // .setPixelRatio 设置设备像素比。通常用于避免HiDPI设备上绘图模糊
   // window.devicePixelRatio 获取设备像素比
   renderer.setPixelRatio(window.devicePixelRatio)
-}) 
+})
+
+
