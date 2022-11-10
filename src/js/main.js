@@ -24,30 +24,27 @@ camera.position.set(0, 0, 10)
 // 将相机添加到场景中
 scene.add(camera)
 
-// 添加物体
-// 创建几何体
-const geometry = new THREE.BufferGeometry()
 
-const vertices = new Float32Array([
-  -1.0, -1.0, 1.0,
-  1.0, -1.0, 1.0,
-  1.0, 1.0, 1.0,
-  1.0, 1.0, 1.0,
-  -1.0, 1.0, 1.0,
-  -1.0, -1.0, 1.0
-])
 
-geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
 
-// 创建材质
-const material = new THREE.MeshBasicMaterial({ color: 0xffff00 })
+for (let i = 0; i < 50; i++) {
+  const geometry = new THREE.BufferGeometry
+  // 提前告知数组长度
+  const vertices = new Float32Array(9)
+  for (let j = 0; j < 9; j++) {
+    vertices[j] = Math.random() * 10 - 5
+  }
+  geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
+  let color = new THREE.Color(Math.random(), Math.random(), Math.random())
+  const material = new THREE.MeshBasicMaterial({ color: color, transparent: true, opacity: 0.5 })
 
-// 创建缓冲物体
-const mesh = new THREE.Mesh(geometry, material)
+  const mesh = new THREE.Mesh(geometry, material)
+  scene.add(mesh)
+  console.log(mesh)
+}
 
-scene.add(mesh)
 
-console.log(mesh)
+
 
 // 创建 GUI
 const gui = new dat.GUI();
