@@ -84,44 +84,19 @@ scene.add(axesHelper)
 // 设置 three 自带的时钟
 const clock = new THREE.Clock()
 
-// 设置动画
-const animate1 = gsap.to(cube.position, {
-  // 移动到的坐标
-  x: 5,
-  // 持续时间
-  duration: 2,
-  // 贝塞尔曲线
-  ease: 'power1.inOut',
-  // 动画开始时的回调函数
-  onStart: () => {
-    console.log('The animation start')
-  },
-  // 动画结束时的回调函数
-  onComplete: () => {
-    console.log('The animation is complete')
-  },
-  // 设置重复的次数,1 --> 重复一次, 2 --> 重复两次, -1 ---> 循环
-  repeat: -1,
-  // 开启往返运动, 需要配合 repea 使用
-  yoyo: true,
-  // 延时时间
-  delay: 1
-})
-gsap.to(cube.rotation, { x: Math.PI * 2, duration: 5, ease: 'power1.inOut' })
+
 
 // 监听双击事件
 window.addEventListener('dblclick', () => {
-  // isActive() 是否在活动中---返回布尔值
-  if (animate1.isActive()) {
-    // 暂停
-    animate1.pause()
+  // 获取文档中处于全屏状态的 dom
+  const fullScreenElement = document.fullscreenElement
+  if (!fullScreenElement) {
+    // 让画布进入全屏
+    renderer.domElement.requestFullscreen()
   } else {
-    // 恢复
-    animate1.resume()
-    // 播放
-    // animate1.play()
+    // 退出全屏 
+    document.exitFullscreen()
   }
-
 })
 
 
