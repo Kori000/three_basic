@@ -40,13 +40,13 @@ const giteeColorTexture = textureLoader.load('./texture/gitee.png')
 // giteeColorTexture.center.set(0.5, 0.5)
 
 // 设置纹理的重复
-giteeColorTexture.repeat.set(2, 3)
+// giteeColorTexture.repeat.set(2, 3)
 // 设置纹理重复的模式
 
 // x 轴 - 镜像
-giteeColorTexture.wrapS = THREE.MirroredRepeatWrapping
+// giteeColorTexture.wrapS = THREE.MirroredRepeatWrapping
 // y 轴 - 无限重复
-giteeColorTexture.wrapT = THREE.RepeatWrapping
+// giteeColorTexture.wrapT = THREE.RepeatWrapping
 
 
 
@@ -55,7 +55,9 @@ const cubeGeometry = new THREE.BoxGeometry(1, 1, 1)
 
 const cubeMaterial = new THREE.MeshBasicMaterial({
   color: '#fff',
-  map: giteeColorTexture
+  map: giteeColorTexture,
+  transparent: true,
+  opacity: 0.3
 })
 
 const mesh = new THREE.Mesh(cubeGeometry, cubeMaterial)
