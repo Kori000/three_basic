@@ -24,26 +24,22 @@ camera.position.set(0, 0, 10)
 // 将相机添加到场景中
 scene.add(camera)
 
+// 导入纹理加载器
+const textureLoader = new THREE.TextureLoader()
 
+// 导入纹理
+const giteeColorTexture = textureLoader.load('./texture/gitee.png')
 
+const cubeGeometry = new THREE.BoxGeometry(1, 1, 1)
 
-for (let i = 0; i < 50; i++) {
-  const geometry = new THREE.BufferGeometry
-  // 提前告知数组长度
-  const vertices = new Float32Array(9)
-  for (let j = 0; j < 9; j++) {
-    vertices[j] = Math.random() * 10 - 5
-  }
-  geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
-  let color = new THREE.Color(Math.random(), Math.random(), Math.random())
-  const material = new THREE.MeshBasicMaterial({ color: color, transparent: true, opacity: 0.5 })
+const cubeMaterial = new THREE.MeshBasicMaterial({
+  color: '#ffff00',
+  map: giteeColorTexture
+})
 
-  const mesh = new THREE.Mesh(geometry, material)
-  scene.add(mesh)
-  console.log(mesh)
-}
+const mesh = new THREE.Mesh(cubeGeometry, cubeMaterial)
 
-
+scene.add(mesh)
 
 
 // 创建 GUI
