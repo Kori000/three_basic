@@ -27,13 +27,34 @@ scene.add(camera)
 // 导入纹理加载器
 const textureLoader = new THREE.TextureLoader()
 
-// 导入纹理
+// 导入纹理 -- gitee图片
 const giteeColorTexture = textureLoader.load('./texture/gitee.png')
+
+// 设置偏移量属性
+// giteeColorTexture.offset.z = 1
+
+// 设置旋转 45deg
+// giteeColorTexture.rotation = Math.PI / 4.
+
+// 设置旋转的圆点
+// giteeColorTexture.center.set(0.5, 0.5)
+
+// 设置纹理的重复
+giteeColorTexture.repeat.set(2, 3)
+// 设置纹理重复的模式
+
+// x 轴 - 镜像
+giteeColorTexture.wrapS = THREE.MirroredRepeatWrapping
+// y 轴 - 无限重复
+giteeColorTexture.wrapT = THREE.RepeatWrapping
+
+
+
 
 const cubeGeometry = new THREE.BoxGeometry(1, 1, 1)
 
 const cubeMaterial = new THREE.MeshBasicMaterial({
-  color: '#ffff00',
+  color: '#fff',
   map: giteeColorTexture
 })
 
